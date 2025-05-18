@@ -1,0 +1,5 @@
+Flask>=2.0
+jmcomic>=1.2.3  # 请确保版本号与JMComic-Crawler-Python兼容或使用最新版
+python-dotenv>=0.19 # 用于加载 .env 文件 (可选，但推荐)
+gunicorn>=20.0 # 用于生产环境部署 (Linux/macOS)
+waitress>=2.0 # 用于生产环境部署 (Windows)

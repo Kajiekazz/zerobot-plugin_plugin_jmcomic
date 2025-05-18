@@ -1,0 +1,8 @@
+{
+    "api_base_url": "http://localhost:5000",
+    "api_client_type": "html",
+    "request_timeout_seconds": 30,
+    "max_search_results_display": 5,
+    "max_chapters_display": 10
+  }
+  

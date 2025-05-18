@@ -1,0 +1,48 @@
+# python_api_service/jm.yaml
+# 这是一个示例，你需要根据实际情况修改
+# 参考: https://github.com/hect0x7/JMComic-Crawler-Python/blob/main/assets/jm.yaml.example
+
+# 选项相关配置
+option:
+  # 下载图片时的元数据，例如来源网站，会被写入图片文件属性
+  meta_data:
+    # 是否打印debug日志，建议为false
+    debug: false
+    # 下载线程数，越多下载越快，但也更容易失败，根据网络情况调整
+    download_threading_count: 5 # 原来是10，降低点可能更稳定
+    # 下载时，如果图片已存在，是否跳过
+    download_image_overwrite: false
+    # 请求超时时间（秒）
+    request_timeout: 10
+    # 请求重试次数
+    request_retry_count: 3
+    # 请求重试之间的等待时间（秒）
+    request_retry_wait_secs: 2
+
+  # 路径相关的配置
+  dir:
+    # JM图片下载的根目录，可以使用相对路径或绝对路径
+    # API服务会以此为基础创建漫画和章节文件夹
+    # 最终下载路径会是 base_dir/漫画名/章节名/图片
+    base_dir: "./jm_downloads_api" # API服务的下载目录
+
+# 禁漫天堂网站相关配置（请务必保持最新或根据实际情况调整）
+jm:
+  # ... (省略其他JM配置，例如域名、图片分割等，请参考官方jm.yaml.example)
+  # 例如：
+  # domain:
+  #   # 主站域名，用于请求网页 (html client)
+  #   domain_net: jmcomic.me
+  #   # API域名，用于请求接口 (api client)
+  #   domain_api: api.jmcomic.me
+  # headers:
+  #   User-Agent: "Mozilla/5.0 ..." # 建议设置一个User-Agent
+
+# 代理配置 (如果需要)
+# proxy:
+#   # 是否启用代理
+#   enable: false
+#   # http代理，例如 "http://127.0.0.1:7890"
+#   http:
+#   # https代理，例如 "http://127.0.0.1:7890"
+#   https:
