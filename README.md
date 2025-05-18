@@ -3,7 +3,7 @@
 
 部署此插件需要两个主要步骤：
 1.  部署Python API服务。
-2.  编译和安装Go ZeroBot插件。
+2.  编译和安装ZeroBot-plugin插件。
 
 ### 步骤 1: 部署 Python API 服务
 
@@ -66,40 +66,26 @@ Python API服务负责与JMComic网站交互。
 
 3.  确保API服务正在运行并且ZeroBot插件可以访问到它 (例如，检查防火墙设置)。你可以访问 `http://<API_HOST>:<API_PORT>/health` 来检查API健康状态。
 
-### 步骤 2: 编译和安装 Go ZeroBot 插件
+### 步骤 2: 编译和安装ZeroBot-plugin 插件
 
 **先决条件:**
--   Go 1.18 或更高版本。
--   已正确安装和配置的ZeroBot环境。
+-   Go 1.20 或更低版本。
+-   已正确安装和配置的ZeroBot-plugin所需环境。
 
 **安装:**
 
-1.  将 `go_plugin` 目录复制到你的ZeroBot插件目录下 (通常是 `plugins/` 目录，具体路径取决于你的ZeroBot设置)。或者，如果你的ZeroBot支持通过 `go get` 或模块依赖方式加载插件，请遵循其规范。
+1.  将 `jmcomic` 目录复制到你的ZeroBot-plugin插件目录下 (通常是 `plugins/` 目录。
 
-2.  进入 `go_plugin` 目录:
-    ```bash
-    cd path/to/your/zerobot/plugins/go_plugin 
-    # 或者你的项目根目录下的 go_plugin
-    ```
+2.  在bot根目录下的main.go中添加import
 
 3.  配置 `config.json`:
-    创建一个 `config.json` 文件 (可以从 `go_plugin/config.json` 示例复制)，并根据你的设置进行修改：
+    创建一个 `config.json` 文件 (可以从 `jmcomic/config.json` 示例复制)，并根据你的设置进行修改：
     -   `jm_api_base_url`: **必须**指向你部署的Python API服务的地址 (例如, `"http://localhost:5000"` 或 `"http://your_api_server_ip:5000"`)。
     -   `jm_api_client_type`: API服务内部使用的JM客户端类型，通常为 `"html"`。
     -   `command_prefix`: 插件的命令前缀 (例如, `"jm"`)。
     -   `request_timeout_seconds`: Go插件调用API的超时时间。
 
-4.  编译插件:
-    如果ZeroBot需要编译好的插件文件 (如 `.so` 或可执行文件)，你需要根据ZeroBot的插件规范进行编译。
-    通常，如果插件是一个独立的Go模块被ZeroBot加载，你可能只需要确保代码在正确的位置，ZeroBot会在启动时编译或加载它。
-    如果需要手动编译 (例如，编译为 `.so` 文件给 `cza` 类型的插件):
-    ```bash
-    # 示例编译命令，具体请参考ZeroBot插件类型文档
-    # go build -buildmode=plugin -o ../jmcomic.so . 
-    ```
-    对于很多现代Go框架，将插件作为主程序的一部分或通过Go模块依赖进行管理更为常见。请参考ZeroBot的文档。
-
-5.  (重新)启动 ZeroBot。插件应该会被加载。
+4.  (重新)启动 ZeroBot。插件应该会被加载。
 
 ## 使用方法
 
@@ -134,17 +120,19 @@ Python API服务负责与JMComic网站交互。
     -   查看API服务器启动时的控制台日志以获取错误信息。
 -   **Go插件无法连接到API服务**:
     -   确保API服务正在运行。
-    -   检查 `go_plugin/config.json` 中的 `jm_api_base_url` 是否正确指向API服务的地址和端口。
-    -   检查网络连接和防火墙设置，确保ZeroBot运行的机器可以访问API服务。
+    -   检查 `jmcomic/config.json` 中的 `jm_api_base_url` 是否正确指向API服务的地址和端口。
+    -   检查网络连接和防火墙设置，确保ZeroBot-plgin运行的机器可以访问API服务。
 -   **搜索/详情/下载失败**:
     -   查看ZeroBot的日志和Python API服务的日志，通常会有更详细的错误信息。
     -   可能是 `jm.yaml` 配置问题 (如域名失效、代理问题)。
     -   可能是JMComic网站本身的问题或反爬虫策略变更。
 
-## 贡献
+## 参考
 
-欢迎提交Issue和Pull Request。
+本项目参考了以下仓库，感谢大佬们的无私贡献
+-   https://github.com/Fatfish588/jmid2name-hoshino
+-   https://github.com/hect0x7/JMComic-Crawler-Python
 
 ## 许可证
 
-MIT License (或者你选择的其他许可证)
+MIT License
